@@ -1,4 +1,4 @@
-// News-image entry, round 2: the front page is drawn in code by a Python/PIL
+// News-image entry, round 3: the front page is drawn in code by a Python/PIL
 // renderer (see the build report for the script) and shipped as entry.png.
 // This program only copies that image into the grader's output directory,
 // the same one-file pattern the kit starter ships. The image itself counts
