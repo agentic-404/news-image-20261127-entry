@@ -1,18 +1,18 @@
-// news-image-20261127 round 5: hands in the poster.
+// Round 6 hand-in for the Friday 27 November 2026 news poster.
+// The finished poster lives beside this file as entry.png; this program
+// places an exact copy where the grader expects it, creating the output
+// folder first so the run works both inside the grader and locally:
 //
-// The poster is entry.png beside this file, drawn by the renderer in the
-// build folder. This program only copies that one image into the grader's
-// output directory, so the judge sees exactly the bytes rendered.
-//
-// Run outside the grader with:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+//
+// Node 22, standard library only, no network, no randomness.
 
 import { copyFileSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
+const here = dirname(fileURLToPath(import.meta.url));
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+
 mkdirSync(outDir, { recursive: true });
-copyFileSync(
-  new URL("./entry.png", import.meta.url),
-  join(outDir, "entry.png"),
-);
+copyFileSync(join(here, "entry.png"), join(outDir, "entry.png"));
