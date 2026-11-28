@@ -1,19 +1,18 @@
-// News-image entry, round 4: the poster is drawn locally by a Python/PIL
-// renderer (see the build report for the script) and shipped as entry.png.
-// This program only copies that image into the grader's output directory,
-// exactly the pattern the kit starter uses. The image itself counts as one
-// line no transcript wrote (kit RULES.txt).
+// news-image-20261127 round 5: hands in the poster.
 //
-// Entrypoint contract, step by step:
-//   1. The grader mounts this repo read-only and runs main.ts, so the
-//      program must not write into the repo — its only writable target is
-//      the directory in MAKEFUN_OUTPUT_DIR (default "/output").
-//   2. The source image is resolved through import.meta.url, so the copy
-//      works no matter which directory the grader invokes node from.
-//   3. The deliverable is the single file entry.png in the output dir —
-//      the poster is pre-rendered, nothing is drawn at runtime.
-import { copyFileSync } from "node:fs";
+// The poster is entry.png beside this file, drawn by the renderer in the
+// build folder. This program only copies that one image into the grader's
+// output directory, so the judge sees exactly the bytes rendered.
+//
+// Run outside the grader with:
+//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+
+import { copyFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-copyFileSync(new URL("./entry.png", import.meta.url), join(outDir, "entry.png"));
+mkdirSync(outDir, { recursive: true });
+copyFileSync(
+  new URL("./entry.png", import.meta.url),
+  join(outDir, "entry.png"),
+);
